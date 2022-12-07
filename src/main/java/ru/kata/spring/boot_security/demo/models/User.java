@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -24,22 +25,28 @@ public class User implements UserDetails {
     @Column(name = "age")
     private int age;
 
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "password")
     private String password;
 
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(name = "user_roles",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id"))
+//    @Column(name = "roles")
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
 
-    public User(String name, String surname, int age) {
+    public User(String name, String surname, int age, String email) {
         this.name = name;
         this.surname = surname;
         this.age = age;
-    }
-
-    public User(String hh, String hh1, int i, String password) {
+        this.email = email;
     }
 
     public int getId() {
@@ -74,6 +81,14 @@ public class User implements UserDetails {
         this.age = age;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -88,7 +103,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
+        return this.getRoles();
     }
 
     @Override
@@ -119,5 +134,33 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String rolesToStr() {
+        String str = "";
+        for (Role role: roles) {
+            str += role.toString().replace("ROLE_", "") + " ";
+        }
+        return str;
+    }
+
+    public void addRole(Role role) {
+        if (this.roles == null) {
+            this.roles = new HashSet<>();
+        }
+        this.roles.add(role);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + rolesToStr() +
+                '}';
     }
 }

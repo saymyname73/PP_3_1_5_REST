@@ -22,8 +22,8 @@ public class UserDetailsServiceImp implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByName(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Optional<User> user = userRepository.findUserByEmail(email);
 
         if (user.isEmpty()) {
             throw new UsernameNotFoundException("User not found!");
@@ -36,13 +36,15 @@ public class UserDetailsServiceImp implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public User show(int id) {
-        return userRepository.getById(id);
+        return userRepository.findById(id).get();
     }
 
     @Transactional
     public void delete(int id) {
         userRepository.deleteById(id);
     }
+
+
 }

@@ -22,7 +22,7 @@ public class UserController {
         Set<Role> roles = user.getRoles();
         model.addAttribute("user", user);
         model.addAttribute("roles", roles);
-        return "user/index";
+        return "/user";
     }
 
 }

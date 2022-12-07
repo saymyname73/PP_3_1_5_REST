@@ -24,14 +24,9 @@ public class AuthController {
         this.regService = regService;
     }
 
-    @GetMapping("/login")
-    public String loginPage() {
-        return "auth/login";
-    }
-
     @GetMapping("/reg")
     public String regPage(@ModelAttribute("user") User user) {
-        return "auth/reg";
+        return "/reg";
     }
 
     @PostMapping("/reg")
@@ -39,11 +34,10 @@ public class AuthController {
         userValidator.validate(user, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "/auth/reg";
+            return "/reg";
         }
-
         regService.register(user);
 
-        return "redirect:/auth/login";
+        return "redirect:/login";
     }
 }

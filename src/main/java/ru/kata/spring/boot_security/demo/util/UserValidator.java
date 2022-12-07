@@ -25,10 +25,10 @@ public class UserValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         User user = (User) target;
-        Optional<User> optionalUser = validateService.userOptional(user.getUsername());
+        Optional<User> optionalUser = validateService.userOptional(user.getEmail());
 
         if (optionalUser.isPresent()) {
-            errors.rejectValue("name", "", "User с таким именем уже зарегистрирован");
+            errors.rejectValue("email", "", "User с таким адресом уже зарегистрирован");
         }
     }
 }

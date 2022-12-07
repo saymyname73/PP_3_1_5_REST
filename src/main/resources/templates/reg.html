@@ -9,17 +9,29 @@
 <form th:method="POST" th:action="@{/auth/reg}" th:object="${user}">
   <label for="username">Введите имя пользователя: </label>
   <input type="text" th:field="*{name}" id="username"/>
-  <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Username Error</div>
+
   <br/>
   <label for="surname">Введите Фамилию: </label>
   <input type="text" th:field="*{surname}" id="surname"/>
   </div>
   <br/>
-  <label for="age">Ввудите возраст: </label>
+  <label for="age">Введите возраст: </label>
   <input type="text" th:field="*{age}" id="age"/>
+  <br/>
+  <label for="email">Введите email: </label>
+  <input type="email" th:field="*{email}" id="email"/>
+  <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
   <br/>
   <label for="password">Введите пароль: </label>
   <input type="password" th:field="*{password}" id="password"/>
+  <div class="form-group">
+    <label for="role">Role</label>
+    <select multiple class="form-control" th:field="*{roles}" id="role"
+            name="roles">
+      <option th:value="1">USER</option>
+      <option th:value="2">ADMIN</option>
+    </select>
+  </div>
   <br/>
   <input type="submit" value="Sign up!"/>
 </form>

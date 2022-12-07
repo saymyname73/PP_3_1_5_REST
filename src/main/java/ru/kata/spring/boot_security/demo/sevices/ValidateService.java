@@ -15,7 +15,8 @@ public class ValidateService {
         this.userRepository = userRepository;
     }
 
-    public Optional<User> userOptional(String name) {
-        return userRepository.findByName(name);
+    public Optional<User> userOptional(String email) {
+        return userRepository.findUserByEmail(email);
+
     }
 }
