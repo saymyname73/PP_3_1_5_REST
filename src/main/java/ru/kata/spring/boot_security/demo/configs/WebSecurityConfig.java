@@ -31,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/auth/reg").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login").loginProcessingUrl("/login_process")
+                .formLogin().loginPage("/").loginProcessingUrl("/login_process")
                 .successHandler(successUserHandler)
                 .permitAll()
                 .and()

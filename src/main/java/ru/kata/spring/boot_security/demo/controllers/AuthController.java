@@ -38,6 +38,6 @@ public class AuthController {
         }
         regService.register(user);
 
-        return "redirect:/login";
+        return "redirect:/";
     }
 }
