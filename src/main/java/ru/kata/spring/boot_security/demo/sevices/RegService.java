@@ -19,10 +19,6 @@ public class RegService {
 
     @Transactional
     public void register(User user) {
-//        Set<Role> roles = new HashSet<>();
-//        roles.add(new Role(1));
-//        roles.add(new Role(2));
-//        user.setRoles(roles);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }

@@ -7,15 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserDetailsServiceImp implements UserDetailsService {
 
     private final UserRepository userRepository;
-
 
     public UserDetailsServiceImp(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -23,12 +20,12 @@ public class UserDetailsServiceImp implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findUserByEmail(email);
+        User user = userRepository.findUserByEmail(email);
 
-        if (user.isEmpty()) {
+        if (user == null) {
             throw new UsernameNotFoundException("User not found!");
         }
-        return user.get();
+        return user;
     }
 
     @Transactional

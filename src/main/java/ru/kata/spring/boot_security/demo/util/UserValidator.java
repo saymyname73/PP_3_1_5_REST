@@ -6,7 +6,6 @@ import org.springframework.validation.Validator;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.sevices.ValidateService;
 
-import java.util.Optional;
 
 @Component
 public class UserValidator implements Validator {
@@ -25,9 +24,9 @@ public class UserValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         User user = (User) target;
-        Optional<User> optionalUser = validateService.userOptional(user.getEmail());
+        User optionalUser = validateService.userOptional(user.getEmail());
 
-        if (optionalUser.isPresent()) {
+        if (optionalUser != null) {
             errors.rejectValue("email", "", "User с таким адресом уже зарегистрирован");
         }
     }

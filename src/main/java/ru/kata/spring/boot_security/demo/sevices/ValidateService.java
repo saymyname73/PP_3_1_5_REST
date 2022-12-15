@@ -4,8 +4,6 @@ import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
-import java.util.Optional;
-
 @Service
 public class ValidateService {
 
@@ -15,7 +13,7 @@ public class ValidateService {
         this.userRepository = userRepository;
     }
 
-    public Optional<User> userOptional(String email) {
+    public User userOptional(String email) {
         return userRepository.findUserByEmail(email);
 
     }
